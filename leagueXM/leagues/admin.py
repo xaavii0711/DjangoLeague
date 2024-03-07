@@ -9,6 +9,7 @@ class EventInline(admin.TabularInline):
     model = Event
     fields = ["temps","tipus","jugador","equip"]
     ordering = ("temps",)
+    extra= 0
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "equip":
             partit_id = request.resolver_match.kwargs.get('object_id')
