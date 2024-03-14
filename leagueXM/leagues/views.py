@@ -3,10 +3,14 @@ from django.http import *
 from django.shortcuts import render, get_object_or_404
 from .models import *
 from django.http import HttpResponse
-from django.shortcuts import render
 
 from django import forms
 from django.shortcuts import redirect
+
+from .models import Equip
+
+
+
  
 
 def index(request):
@@ -57,24 +61,47 @@ def classificacio(request, lliga_id):
                     "lliga":lliga,
                 })
     
-# class LligaForm(forms.ModelForm):
-#     class Meta:
-#         model = Lliga
-#         fields = ["nom"]
+
+class CrearLiga(forms.ModelForm):
+    class Meta:
+        model = Lliga
+        fields = ['nom']
+
+    def clean_nom(self):
+        nom = self.cleaned_data['nom']
+        if Lliga.objects.filter(nom=nom).exists():
+            raise forms.ValidationError("Ya existe una liga con este nombre.")
+        return nom
     
-# def crearLliga(request):
-#     form = LligaForm()
-#     messageError  = ""
-#     if request.method == "POST":
-#         form = LligaForm(request.POST)
-#         if form.is_valid():
-#             nom_lliga = form.cleaned_data.get("nom")
-#             if Lliga.objects.filter(nom=nom_lliga).exists():
-#                 messageError = "El nom de la lliga ja existeix"
-#             else:
-#                 messageError = "La lliga " + nom_lliga + " s'ha creat correctament"
-#                 form.save()
+def crear_lliga(request):
+    if request.method == 'POST':
+        form = CrearLiga(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('crearLliga')
+    else:
+        form = CrearLiga()
+    return render(request, 'crearLliga.html', {'form': form})
+
+class CrearEquipo(forms.ModelForm):
+    class Meta:
+        model = Equip
+        fields = ['nom', 'ciutat', 'fundacio', 'lliga']
+
+    def clean_nom(self):
+        nom = self.cleaned_data['nom']
+        if Equip.objects.filter(nom=nom).exists():
+            raise forms.ValidationError("Ya existe un equipo con este nombre.")
+        return nom
     
-#     return render(request, "crearLliga.html", {"form": form, "message": messageError})
+def crear_equipo(request):
+    if request.method == 'POST':
+        form = CrearEquipo(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('crear_equipo')
+    else:
+        form = CrearEquipo()
+    return render(request, 'crearEquipo.html', {'form': form})
 
 
