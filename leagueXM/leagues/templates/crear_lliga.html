@@ -1,0 +1,68 @@
+<style>
+    h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #4caf50;
+        text-align: center;
+        text-transform: uppercase;
+        margin: 1em;
+    }
+
+    form {
+        font-family: Arial, Helvetica, sans-serif;
+        width: 500px;
+        margin: auto;
+        margin-top: 5em;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f2f2f2;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    select,
+    input {
+        display: block;
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+
+    input[type="submit"] {
+        background-color: #4caf50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+    p#message {
+        text-align: center;
+        padding: 50px;
+        font-weight: bold;
+        font-size: 18px;
+      }
+</style>
+<h1>Crear Lliga</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <input type="submit" name="submit">
+</form>
+<p id="message">{{ message }}</p>

@@ -4,6 +4,27 @@ from .models import *
 
 # class PartitAdmin(admin.ModelAdmin):
 #     list_display = ('local','visitant','gols_local','gols_visitant')
+# class JugadorAdmin(admin.ModelAdmin):
+#     list_display = [
+#         'alias',
+#         'nom_jugador',
+#         'cognnoms_jugador',
+#         'dorsal',
+#         'gols',
+#         'asistencies',
+#         'targeta_vermella',
+#         'targeta_groga'
+#     ]
+    
+# class EquipAdmin(admin.ModelAdmin):
+#     list_display = [
+#         'nom_equip'
+#     ]
+
+# class LligaAdmin(admin.ModelAdmin):
+#     list_display = [
+#         'nom_lliga'
+#     ]
 
 class EventInline(admin.TabularInline):
     model = Event
