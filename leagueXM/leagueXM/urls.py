@@ -19,8 +19,13 @@ from django.urls import path, include
 
 import leagues
 
+from leagues import api
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('leagueXM/', include('leagues.urls')),
-    path('',leagues.views.index)
+    path('',leagues.views.index),
+    path('api/get_lligues', api.get_lligues, name='get_lligues'),
+    path('profile/', leagues.views.profile),
+    path("accounts/", include("django.contrib.auth.urls")),
 ]

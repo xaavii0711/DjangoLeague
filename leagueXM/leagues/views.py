@@ -8,13 +8,18 @@ from django import forms
 from django.shortcuts import redirect
 
 from .models import Equip
+from django.contrib.auth.decorators import login_required
 
-
-
- 
+@login_required
+def profile(request):
+    userstr = str(request.user)
+    return HttpResponse("profile: "+userstr)
 
 def index(request):
     return render(request,"index.html")
+
+def edita_equip(request):
+    return render(request, "edita_equip_ajax.html")
 
 
 class MenuForm(forms.Form):
